@@ -1,0 +1,22 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'kb.project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'cc.catalysts.structurizr:structurizr-spring-boot:1.3.0'
+	implementation 'com.structurizr:structurizr-client:1.3.0'
+	implementation 'org.yaml:snakeyaml:1.24'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

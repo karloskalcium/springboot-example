@@ -1,0 +1,11 @@
+# copy this file to application.yaml and add the workspace ID, key, and secret from your Structurizr workspace
+structurizr:
+#  Uncomment this line to skip merging the model to Structurizr web service.
+#  perform-merge: false
+  workspace:
+    id: 45653
+    key: key-here
+    secret: secret-here
+    name: springboot-example
+    description: Simple example of springboot extensions + structurizr
+
