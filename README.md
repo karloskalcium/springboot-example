@@ -5,7 +5,8 @@ to create a sample microservice architecture model, based on [BigBank.plc](https
 This model can then be uploaded to [Structurizr](https://structurizr.com) to generate various visualizations and diagrams. 
 
 It is meant to show a more complex example, written in a more extensible fashion (leveraging the SpringBoot extensions),
-and can be used a starting point for other projects.
+and can be used a starting point for other projects. It is not meant to represent an actual/complete architecture 
+of a bank, it is very simplified.
 
 ## Usage
 ### 1. Set your workspace ID, API key and secret
