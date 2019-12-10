@@ -8,6 +8,7 @@ import com.structurizr.view.*;
 import javax.annotation.Nonnull;
 import kb.project.c4model.Personas;
 import kb.project.c4model.ViewHelper;
+import kb.project.c4model.structurizr.extensions.ContainerViewExtensions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -58,7 +59,6 @@ public class InternetBanking implements ViewProvider, ModelPostProcessor {
     // Phase 2 - mobile support
     mobileApp.uses(apiApplication, "Uses API from", "HTTPS");
     customer.uses(mobileApp, "Uses", "iOS/Android");
-
   }
 
   public Container getMobileApp() { return mobileApp; }
@@ -87,7 +87,9 @@ public class InternetBanking implements ViewProvider, ModelPostProcessor {
     final ContainerView containerView = viewSet.createContainerView(system, "internetbanking_c",
         "Internet Banking container view");
     containerView.setPaperSize(PaperSize.A4_Landscape);
-    containerView.addAllContainersAndInfluencers();
+    containerView.addAllContainers();
+    // Here we want to add relationships even between things which are external to this system
+    ContainerViewExtensions.addAllInfluencersAndRelationships(containerView);
     containerView.addDependentSoftwareSystems();
 
     final FilteredView phase1View = viewSet.createFilteredView(containerView,"phase1_internetbanking_c",
