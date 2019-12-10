@@ -29,7 +29,8 @@ Run the program, using your IDE or Gradle; for example:
 Once you log in you can tweak the layout of the diagrams and save; next time you upload the elements will remember
 their location.
 
-There is a [public workspace](https://structurizr.com/share/45653) available where you can see the diagrams that result from this model.
+There is a [workspace](https://structurizr.com/share/45653/ec97f8ff-2b69-4521-acd8-48c24b4227a8) available 
+where you can see the diagrams that result from this model.
 
 ## Modeling approach:
 

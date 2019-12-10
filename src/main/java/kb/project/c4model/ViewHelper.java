@@ -53,15 +53,6 @@ public class ViewHelper implements ViewProvider, ModelPostProcessor {
         "Overall landscape of systems");
     overallServicesLandscapeView.setPaperSize(PaperSize.A3_Landscape);
     overallServicesLandscapeView.addAllElements();
-
-    final FilteredView phase1View = viewSet.createFilteredView(overallServicesLandscapeView,"phase1_landscape_f",
-            "Overall landscape for phase 1", FilterMode.Exclude, PHASE_2);
-
-    // If you add a filtered view it will eliminate the main view, so adding one here that filters nothing
-    // (thus, including all of phase 2)
-    /*final FilteredView phase2View = viewSet.createFilteredView(overallServicesLandscapeView, "phase2_landscape_f",
-        "Overall landscape for phase 2", FilterMode.Exclude, "");
-    */
   }
 
   private void configureStyles(ViewSet viewSet) {

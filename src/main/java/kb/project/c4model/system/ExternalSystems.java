@@ -1,5 +1,6 @@
 package kb.project.c4model.system;
 
+import com.structurizr.model.InteractionStyle;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;

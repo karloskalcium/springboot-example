@@ -3,10 +3,8 @@ package kb.project.c4model.system;
 import cc.catalysts.structurizr.ModelPostProcessor;
 import cc.catalysts.structurizr.ViewProvider;
 import com.structurizr.model.*;
-import com.structurizr.view.ContainerView;
-import com.structurizr.view.PaperSize;
-import com.structurizr.view.SystemContextView;
-import com.structurizr.view.ViewSet;
+import com.structurizr.view.*;
+
 import javax.annotation.Nonnull;
 import kb.project.c4model.Personas;
 import kb.project.c4model.ViewHelper;
@@ -33,7 +31,8 @@ public class InternetBanking implements ViewProvider, ModelPostProcessor {
     mobileApp = system.addContainer("Mobile App",
             "Provides a limited subset of the Internet banking functionality to customers via their mobile device.",
             "Xamarin");
-    mobileApp.addTags(ViewHelper.MOBILE_APP);
+    // Mobile app is coming as part of phase 2
+    mobileApp.addTags(ViewHelper.MOBILE_APP, ViewHelper.PHASE_2);
     webApplication = system.addContainer("Web Application",
             "Delivers the static content and the Internet banking single page application.",
             "Java and Spring MVC");
@@ -45,17 +44,21 @@ public class InternetBanking implements ViewProvider, ModelPostProcessor {
             "Relational Database Schema");
     database.addTags(ViewHelper.DATABASE);
 
+    // Phase 1
     Person customer = personas.getExternalCustomer();
     customer.uses(singlePageApplication, "Uses", "HTTPS");
-    customer.uses(mobileApp, "Uses", "iOS/Android");
     webApplication.uses(singlePageApplication, "Delivers", "");
-    mobileApp.uses(apiApplication, "Uses API from", "HTTPS");
     webApplication.uses(apiApplication, "Uses API from", "HTTPS");
     apiApplication.uses(database, "Reads from and writes to", "JDBC");
     apiApplication.uses(mainframe.getMainframeApplication(), "Uses", "XML/HTTPS");
     apiApplication.uses(external.getOffice365(), "Sends e-mail using", "SMTP", InteractionStyle.Asynchronous);
     apiApplication.uses(reporting.getEventBus(), "Sends events to", "HTTPS", InteractionStyle.Asynchronous);
     external.getOffice365().uses(customer, "Sends email to", "SMTP", InteractionStyle.Asynchronous);
+
+    // Phase 2 - mobile support
+    mobileApp.uses(apiApplication, "Uses API from", "HTTPS");
+    customer.uses(mobileApp, "Uses", "iOS/Android");
+
   }
 
   public Container getMobileApp() { return mobileApp; }
@@ -81,10 +84,20 @@ public class InternetBanking implements ViewProvider, ModelPostProcessor {
     contextView.setPaperSize(PaperSize.A4_Landscape);
     contextView.setEnterpriseBoundaryVisible(true);
 
-    final ContainerView containerView = viewSet.createContainerView(system, "internetbanking_c", "Internet Banking container view");
+    final ContainerView containerView = viewSet.createContainerView(system, "internetbanking_c",
+        "Internet Banking container view");
     containerView.setPaperSize(PaperSize.A4_Landscape);
     containerView.addAllContainersAndInfluencers();
     containerView.addDependentSoftwareSystems();
+
+    final FilteredView phase1View = viewSet.createFilteredView(containerView,"phase1_internetbanking_c",
+        "Internet Banking container view for phase 1", FilterMode.Exclude, ViewHelper.PHASE_2);
+
+    // If you add a filtered view it will eliminate the main view, so adding one here that filters nothing
+    // (thus, including all of phase 2)
+    final FilteredView phase2View = viewSet.createFilteredView(containerView,"phase2_internetbanking_c",
+        "Internet Banking container view for phase 2", FilterMode.Exclude,"");
+
   }
 
 }
